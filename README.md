@@ -16,7 +16,10 @@ The figure above shows the main parts of a Litecoin transaction. Each transactio
 
 Each transaction is prefixed by a four-byte transaction version number which tells Litecoin peers and miners which set of rules to use to validate it. This lets developers create new rules for future transactions without invalidating previous transactions.
 
-Spending An Output
+<p align="center">
+    <img src="img/en-tx-overview-spending.svg"><br>
+    <i></i>
+</p>
 
 An output has an implied index number based on its location in the transaction—the index of the first output is zero. The output also has an amount in lites which it pays to a conditional pubkey script. Anyone who can satisfy the conditions of that pubkey script can spend up to the amount of lites paid to it.
 
@@ -24,7 +27,10 @@ An input uses a transaction identifier (txid) and an output index number (often 
 
 The figures below help illustrate how these features are used by showing the workflow Alice uses to send Bob a transaction and which Bob later uses to spend that transaction. Both Alice and Bob will use the most common form of the standard Pay-To-Public-Key-Hash (P2PKH) transaction type. P2PKH lets Alice spend lites to a typical Litecoin address, and then lets Bob further spend those lites using a simple cryptographic key pair.
 
-Creating A P2PKH Public Key Hash To Receive Payment
+<p align="center">
+    <img src="img/en-creating-p2pkh-output.svg"><br>
+    <i></i>
+</p>
 
 Bob must first generate a private/public key pair before Alice can create the first transaction. Litecoin uses the Elliptic Curve Digital Signature Algorithm (ECDSA) with the secp256k1 curve; secp256k1 private keys are 256 bits of random data. A copy of that data is deterministically transformed into an secp256k1 public key. Because the transformation can be reliably repeated later, the public key does not need to be stored.
 
@@ -40,7 +46,10 @@ When, some time later, Bob decides to spend the UTXO, he must create an input wh
 
 Pubkey scripts and signature scripts combine secp256k1 pubkeys and signatures with conditional logic, creating a programmable authorization mechanism.
 
-Unlocking A P2PKH Output For Spending
+<p align="center">
+    <img src="img/en-unlocking-p2pkh-output.svg"><br>
+    <i></i>
+</p>
 
 For a P2PKH-style output, Bob’s signature script will contain the following two pieces of data:
 
@@ -50,7 +59,10 @@ For a P2PKH-style output, Bob’s signature script will contain the following tw
 
 Bob’s secp256k1 signature doesn’t just prove Bob controls his private key; it also makes the non-signature-script parts of his transaction tamper-proof so Bob can safely broadcast them over the peer-to-peer network.
 
-Some Things Signed When Spending An Output
+<p align="center">
+    <img src="img/en-signing-output-to-spend.svg"><br>
+    <i></i>
+</p>
 
 As illustrated in the figure above, the data Bob signs includes the txid and output index of the previous transaction, the previous output’s pubkey script, the pubkey script Bob creates which will let the next recipient spend this transaction’s output, and the amount of lites to spend to the next recipient. In essence, the entire transaction is signed except for any signature scripts, which hold the full public keys and secp256k1 signatures.
 
