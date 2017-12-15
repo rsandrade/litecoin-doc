@@ -1,4 +1,4 @@
-## Transactions
+# Transactions
 
 Transactions let users spend lites. Each transaction is constructed out of several parts which enable both simple direct payments and complex transactions. This section will describe each part and demonstrate how to use them together to build complete transactions.
 
