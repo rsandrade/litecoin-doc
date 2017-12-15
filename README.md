@@ -26,10 +26,12 @@ In the following documentation, some strings have been shortened or wrapped: “
   - Transaction Fees And Change
   - Avoiding Key Reuse
   - Transaction Malleability
+
 ## **Contracts**
   - Escrow And Arbitration
   - Micropayment Channel
   - CoinJoin
+
 ## **Wallets**
   - Wallet Programs
     - Full-Service Wallets
@@ -46,6 +48,7 @@ In the following documentation, some strings have been shortened or wrapped: “
     - Hardened Keys
     - Storing Root Seeds
   - Loose-Key Wallets
+
 ## **Payment Processing**
   - Pricing Orders
   - Requesting Payments
@@ -60,13 +63,15 @@ In the following documentation, some strings have been shortened or wrapped: “
     - Last In, First Out (LIFO)
     - First In, First Out (FIFO)
   - Rebilling Recurring Payments
-- **Operating Modes**
+
+## **Operating Modes**
   - Full Node
   - Simplified Payment Verification (SPV)
     - Potential SPV Weaknesses
     - Bloom Filters
     - Application Of Bloom Filters
   - Future Proposals
+
 ## **P2P Network**
   - Peer Discovery
   - Connecting To Peers
@@ -79,6 +84,7 @@ In the following documentation, some strings have been shortened or wrapped: “
     - Memory Pool
   - Misbehaving Nodes
   - Alerts
+
 ## **Mining**
   - Solo Mining
   - Pool Mining
