@@ -18,8 +18,7 @@ In the following documentation, some strings have been shortened or wrapped: “
   - Detecting Forks
     
 ## [Transactions](Transactions.md)
-(not reviewed)
-- [P2PKH Script Validation](P2PKH-script-validation.md) (not reviewed)
+- [P2PKH Script Validation](P2PKH-script-validation.md)
 - P2SH Scripts
 - Standard Transactions
   - Non-Standard Transactions
