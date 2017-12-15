@@ -9,7 +9,7 @@ Questions about Litecoin development are best asked in one of the Litecoin devel
 
 In the following documentation, some strings have been shortened or wrapped: “[…]” indicates extra data was removed, and lines ending in a single backslash “\” are continued below. If you hover your mouse over a paragraph, cross-reference links will be shown in blue. If you hover over a cross-reference link, a brief definition of the term will be displayed in a tooltip.
 
-## **Blockchain**
+## Blockchain
 - Block Chain Overview
 - Proof Of Work
 - Block Height And Forking
@@ -17,7 +17,8 @@ In the following documentation, some strings have been shortened or wrapped: “
 - Consensus Rule Changes
   - Detecting Forks
     
-## **[Transactions](Transactions.md)** (not reviewed)
+## [Transactions](Transactions.md)
+(not reviewed)
 - [P2PKH Script Validation](P2PKH-script-validation.md) (not reviewed)
 - P2SH Scripts
 - Standard Transactions
@@ -28,12 +29,12 @@ In the following documentation, some strings have been shortened or wrapped: “
 - Avoiding Key Reuse
 - Transaction Malleability
 
-## **Contracts**
+## Contracts
 - Escrow And Arbitration
 - Micropayment Channel
 - CoinJoin
 
-## **Wallets**
+## Wallets
 - Wallet Programs
   - Full-Service Wallets
   - Signing-Only Wallets
@@ -50,7 +51,7 @@ In the following documentation, some strings have been shortened or wrapped: “
   - Storing Root Seeds
 - Loose-Key Wallets
 
-## **Payment Processing**
+## Payment Processing
 - Pricing Orders
 - Requesting Payments
   - Plain Text
@@ -65,7 +66,7 @@ In the following documentation, some strings have been shortened or wrapped: “
   - First In, First Out (FIFO)
 - Rebilling Recurring Payments
 
-## **Operating Modes**
+## Operating Modes
 - Full Node
 - Simplified Payment Verification (SPV)
   - Potential SPV Weaknesses
@@ -73,7 +74,7 @@ In the following documentation, some strings have been shortened or wrapped: “
   - Application Of Bloom Filters
 - Future Proposals
 
-## **P2P Network**
+## P2P Network
 - Peer Discovery
 - Connecting To Peers
 - Initial Block Download
@@ -86,7 +87,7 @@ In the following documentation, some strings have been shortened or wrapped: “
 - Misbehaving Nodes
 - Alerts
 
-## **Mining**
+## Mining
 - Solo Mining
 - Pool Mining
 - Block Prototypes
