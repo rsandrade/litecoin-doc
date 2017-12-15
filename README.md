@@ -19,14 +19,14 @@ In the following documentation, some strings have been shortened or wrapped: “
     
 ## [Transactions](Transactions.md)
 - [P2PKH Script Validation](Transactions.md#p2pkh-script-validation)
-- P2SH Scripts
-- Standard Transactions
-  - Non-Standard Transactions
-- Signature Hash Types
-- Locktime And Sequence Number
-- Transaction Fees And Change
-- Avoiding Key Reuse
-- Transaction Malleability
+- [P2SH Scripts](Transactions.md#p2sh-scripts)
+- [Standard Transactions](Transactions.md#standard-transactions)
+  - [Non-Standard Transactions](Transactions.md#non-standard-transactions)
+- [Signature Hash Types](Transactions.md#signature-hash-types)
+- [Locktime And Sequence Number](Transactions.md#locktime-and-sequence-number)
+- [Transaction Fees And Change](Transactions.md#transaction-fees-and-change)
+- [Avoiding Key Reuse](Transactions.md#avoiding-key-reuse)
+- [Transaction Malleability](Transactions.md#transaction-malleability)
 
 ## Contracts
 - Escrow And Arbitration
