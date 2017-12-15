@@ -65,7 +65,7 @@ As illustrated in the figure above, the data Bob signs includes the txid and out
 
 After putting his signature and public key in the signature script, Bob broadcasts the transaction to Litecoin miners through the peer-to-peer network. Each peer and miner independently validates the transaction before broadcasting it further or attempting to include it in a new block of transactions.
 
-# P2PKH Script Validation
+## P2PKH Script Validation
 
 The validation procedure requires evaluation of the signature script and pubkey script. In a P2PKH output, the pubkey script is:
 
