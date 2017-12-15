@@ -12,7 +12,10 @@ The script language is a Forth-like stack-based language deliberately designed t
 
 To test whether the transaction is valid, signature script and pubkey script operations are executed one item at a time, starting with Bob’s signature script and continuing to the end of Alice’s pubkey script. The figure below shows the evaluation of a standard P2PKH pubkey script; below the figure is a description of the process.
 
-P2PKH Stack Evaluation
+<p align="center">
+    <img src="img/en-p2pkh-stack.svg"><br>
+    <i></i>
+</p>
 
     The signature (from Bob’s signature script) is added (pushed) to an empty stack. Because it’s just data, nothing is done except adding it to the stack. The public key (also from the signature script) is pushed on top of the signature.
 
