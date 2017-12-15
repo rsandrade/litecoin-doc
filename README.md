@@ -53,10 +53,9 @@ Pubkey scripts and signature scripts combine secp256k1 pubkeys and signatures wi
 
 For a P2PKH-style output, Bob’s signature script will contain the following two pieces of data:
 
-    His full (unhashed) public key, so the pubkey script can check that it hashes to the same value as the pubkey hash provided by Alice.
+> His full (unhashed) public key, so the pubkey script can check that it hashes to the same value as the pubkey hash provided by Alice.
 
-    An secp256k1 signature made by using the ECDSA cryptographic formula to combine certain transaction data (described below) with 
-    Bob’s private key. This lets the pubkey script verify that Bob owns the private key which created the public key.
+> An secp256k1 signature made by using the ECDSA cryptographic formula to combine certain transaction data (described below) with Bob’s private key. This lets the pubkey script verify that Bob owns the private key which created the public key.
 
 Bob’s secp256k1 signature doesn’t just prove Bob controls his private key; it also makes the non-signature-script parts of his transaction tamper-proof so Bob can safely broadcast them over the peer-to-peer network.
 
