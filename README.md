@@ -1,6 +1,8 @@
 # Litecoin Developer Guide
 _Find detailed information about the Litecoin protocol and related specifications_
 
+> **Disclaimer:** This documentation has not been extensively reviewed by Bitcoin experts and so likely contains numerous errors. Please use the Issue and Edit links on the bottom left menu to help us improve.
+
 The **Litecoin Developer Guide** aims to provide the information you need to understand Litecoin and start building Litecoin-based applications, but it is not a specification. To make the best use of this documentation, you may want to install the current version of [Litecoin Core](https://www.litecoin.org), either from source or from a pre-compiled executable.
 
 Questions about Litecoin development are best asked in one of the Litecoin development communities. Errors or suggestions related to documentation can be submitted as an issue `or posted to the litecoin-documentation mailing list`.
