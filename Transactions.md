@@ -130,7 +130,7 @@ Besides making it more difficult for someone to attack Bitcoin for free by broad
 
 As of Bitcoin Core 0.9, the standard pubkey script types are:
 
-### Pay To Public Key Hash (P2PKH)
+**Pay To Public Key Hash (P2PKH)**
 
 P2PKH is the most common form of pubkey script used to send a transaction to one or multiple Bitcoin addresses.
 
@@ -139,7 +139,7 @@ Pubkey script: OP_DUP OP_HASH160 <PubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
 Signature script: <sig> <pubkey>
 ```
 
-### Pay To Script Hash (P2SH)
+**Pay To Script Hash (P2SH)**
 
 P2SH is used to send a transaction to a script hash. Each of the standard pubkey scripts can be used as a P2SH redeem script, but in practice only the multisig pubkey script makes sense until more transaction types are made standard.
 
@@ -148,7 +148,7 @@ Pubkey script: OP_HASH160 <Hash160(redeemScript)> OP_EQUAL
 Signature script: <sig> [sig] [sig...] <redeemScript>
 ```
 
-### Multisig
+**Multisig**
 
 Although P2SH multisig is now generally used for multisig transactions, this base script can be used to require multiple signatures before a UTXO can be spent.
 
