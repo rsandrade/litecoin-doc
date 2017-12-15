@@ -134,15 +134,19 @@ As of Bitcoin Core 0.9, the standard pubkey script types are:
 
 P2PKH is the most common form of pubkey script used to send a transaction to one or multiple Bitcoin addresses.
 
+```
 Pubkey script: OP_DUP OP_HASH160 <PubKeyHash> OP_EQUALVERIFY OP_CHECKSIG
 Signature script: <sig> <pubkey>
+```
 
 ### Pay To Script Hash (P2SH)
 
 P2SH is used to send a transaction to a script hash. Each of the standard pubkey scripts can be used as a P2SH redeem script, but in practice only the multisig pubkey script makes sense until more transaction types are made standard.
 
+```
 Pubkey script: OP_HASH160 <Hash160(redeemScript)> OP_EQUAL
 Signature script: <sig> [sig] [sig...] <redeemScript>
+```
 
 ### Multisig
 
@@ -154,25 +158,26 @@ Because of an off-by-one error in the original Bitcoin implementation which must
 
 The signature script must provide signatures in the same order as the corresponding public keys appear in the pubkey script or redeem script. See the description in OP_CHECKMULTISIG for details.
 
+```
 Pubkey script: <m> <A pubkey> [B pubkey] [C pubkey...] <n> OP_CHECKMULTISIG
 Signature script: OP_0 <A sig> [B sig] [C sig...]
+```
 
 Although it’s not a separate transaction type, this is a P2SH multisig with 2-of-3:
 
+```
 Pubkey script: OP_HASH160 <Hash160(redeemScript)> OP_EQUAL
 Redeem script: <OP_2> <A pubkey> <B pubkey> <C pubkey> <OP_3> OP_CHECKMULTISIG
 Signature script: OP_0 <A sig> <C sig> <redeemScript>
-
-Pubkey
-Edit | History | Report Issue | Discuss
+```
+**Pubkey**
 
 Pubkey outputs are a simplified form of the P2PKH pubkey script, but they aren’t as secure as P2PKH, so they generally aren’t used in new transactions anymore.
 
 Pubkey script: <pubkey> OP_CHECKSIG
 Signature script: <sig>
 
-Null Data
-Edit | History | Report Issue | Discuss
+**Null Data**
 
 Null data transaction type relayed and mined by default in Bitcoin Core 0.9.0 and later that adds arbitrary data to a provably unspendable pubkey script that full nodes don’t have to store in their UTXO database. It is preferable to use null data transactions over transactions that bloat the UTXO database because they cannot be automatically pruned; however, it is usually even more preferable to store data outside transactions if possible.
 
@@ -180,16 +185,18 @@ Consensus rules allow null data outputs up to the maximum allowed pubkey script 
 
 Bitcoin Core 0.9.x to 0.10.x will, by default, relay and mine null data transactions with up to 40 bytes in a single data push and only one null data output that pays exactly 0 satoshis:
 
+```
 Pubkey Script: OP_RETURN <0 to 40 bytes of data>
 (Null data scripts cannot be spent, so there's no signature script.)
+```
 
 Bitcoin Core 0.11.x increases this default to 80 bytes, with the other rules remaining the same.
 
 Bitcoin Core 0.12.0 defaults to relaying and mining null data outputs with up to 83 bytes with any number of data pushes, provided the total byte limit is not exceeded. There must still only be a single null data output and it must still pay exactly 0 satoshis.
 
 The -datacarriersize Bitcoin Core configuration option allows you to set the maximum number of bytes in null data outputs that you will relay or mine.
-Non-Standard Transactions
-Edit | History | Report Issue | Discuss
+
+### Non-Standard Transactions
 
 If you use anything besides a standard pubkey script in an output, peers and miners using the default Bitcoin Core settings will neither accept, broadcast, nor mine your transaction. When you try to broadcast your transaction to a peer running the default settings, you will receive an error.
 
@@ -199,17 +206,17 @@ Note: standard transactions are designed to protect and help the network, not pr
 
 As of Bitcoin Core 0.9.3, standard transactions must also meet the following conditions:
 
-    The transaction must be finalized: either its locktime must be in the past (or less than or equal to the current block height), or all of its sequence numbers must be 0xffffffff.
+- The transaction must be finalized: either its locktime must be in the past (or less than or equal to the current block height), or all of its sequence numbers must be 0xffffffff.
 
-    The transaction must be smaller than 100,000 bytes. That’s around 200 times larger than a typical single-input, single-output P2PKH transaction.
+- The transaction must be smaller than 100,000 bytes. That’s around 200 times larger than a typical single-input, single-output P2PKH transaction.
 
-    Each of the transaction’s signature scripts must be smaller than 1,650 bytes. That’s large enough to allow 15-of-15 multisig transactions in P2SH using compressed public keys.
+- Each of the transaction’s signature scripts must be smaller than 1,650 bytes. That’s large enough to allow 15-of-15 multisig transactions in P2SH using compressed public keys.
 
-    Bare (non-P2SH) multisig transactions which require more than 3 public keys are currently non-standard.
+- Bare (non-P2SH) multisig transactions which require more than 3 public keys are currently non-standard.
 
-    The transaction’s signature script must only push data to the script evaluation stack. It cannot push new opcodes, with the exception of opcodes which solely push data to the stack.
+- The transaction’s signature script must only push data to the script evaluation stack. It cannot push new opcodes, with the exception of opcodes which solely push data to the stack.
 
-    The transaction must not include any outputs which receive fewer than 1/3 as many satoshis as it would take to spend it in a typical input. That’s currently 546 satoshis for a P2PKH or P2SH output on a Bitcoin Core node with the default relay fee. Exception: standard null data outputs must receive zero satoshis.
+- The transaction must not include any outputs which receive fewer than 1/3 as many satoshis as it would take to spend it in a typical input. That’s currently 546 satoshis for a P2PKH or P2SH output on a Bitcoin Core node with the default relay fee. Exception: standard null data outputs must receive zero satoshis.
 
 ## Signature Hash Types
 
@@ -217,19 +224,19 @@ OP_CHECKSIG extracts a non-stack argument from each signature it evaluates, allo
 
 The various options for what to sign are called signature hash types. There are three base SIGHASH types currently available:
 
-    SIGHASH_ALL, the default, signs all the inputs and outputs, protecting everything except the signature scripts against modification.
+- SIGHASH_ALL, the default, signs all the inputs and outputs, protecting everything except the signature scripts against modification.
 
-    SIGHASH_NONE signs all of the inputs but none of the outputs, allowing anyone to change where the satoshis are going unless other signatures using other signature hash flags protect the outputs.
+- SIGHASH_NONE signs all of the inputs but none of the outputs, allowing anyone to change where the satoshis are going unless other signatures using other signature hash flags protect the outputs.
 
-    SIGHASH_SINGLE the only output signed is the one corresponding to this input (the output with the same output index number as this input), ensuring nobody can change your part of the transaction but allowing other signers to change their part of the transaction. The corresponding output must exist or the value “1” will be signed, breaking the security scheme. This input, as well as other inputs, are included in the signature. The sequence numbers of other inputs are not included in the signature, and can be updated.
+- SIGHASH_SINGLE the only output signed is the one corresponding to this input (the output with the same output index number as this input), ensuring nobody can change your part of the transaction but allowing other signers to change their part of the transaction. The corresponding output must exist or the value “1” will be signed, breaking the security scheme. This input, as well as other inputs, are included in the signature. The sequence numbers of other inputs are not included in the signature, and can be updated.
 
 The base types can be modified with the SIGHASH_ANYONECANPAY (anyone can pay) flag, creating three new combined types:
 
-    SIGHASH_ALL|SIGHASH_ANYONECANPAY signs all of the outputs but only this one input, and it also allows anyone to add or remove other inputs, so anyone can contribute additional satoshis but they cannot change how many satoshis are sent nor where they go.
+- SIGHASH_ALL|SIGHASH_ANYONECANPAY signs all of the outputs but only this one input, and it also allows anyone to add or remove other inputs, so anyone can contribute additional satoshis but they cannot change how many satoshis are sent nor where they go.
 
-    SIGHASH_NONE|SIGHASH_ANYONECANPAY signs only this one input and allows anyone to add or remove other inputs or outputs, so anyone who gets a copy of this input can spend it however they’d like.
+- SIGHASH_NONE|SIGHASH_ANYONECANPAY signs only this one input and allows anyone to add or remove other inputs or outputs, so anyone who gets a copy of this input can spend it however they’d like.
 
-    SIGHASH_SINGLE|SIGHASH_ANYONECANPAY signs this one input and its corresponding output. Allows anyone to add or remove other inputs.
+- SIGHASH_SINGLE|SIGHASH_ANYONECANPAY signs this one input and its corresponding output. Allows anyone to add or remove other inputs.
 
 Because each input is signed, a transaction with multiple inputs can have multiple signature hash types signing different parts of the transaction. For example, a single-input transaction signed with NONE could have its output changed by the miner who adds it to the block chain. On the other hand, if a two-input transaction has one input signed with NONE and one input signed with ALL, the ALL signer can choose where to spend the satoshis without consulting the NONE signer—but nobody else can modify the transaction.
 
@@ -249,9 +256,9 @@ Even today, setting all sequence numbers to 0xffffffff (the default in Bitcoin C
 
 Locktime itself is an unsigned 4-byte integer which can be parsed two ways:
 
-    If less than 500 million, locktime is parsed as a block height. The transaction can be added to any block which has this height or higher.
+- If less than 500 million, locktime is parsed as a block height. The transaction can be added to any block which has this height or higher.
 
-    If greater than or equal to 500 million, locktime is parsed using the Unix epoch time format (the number of seconds elapsed since 1970-01-01T00:00 UTC—currently over 1.395 billion). The transaction can be added to any block whose block time is greater than the locktime.
+- If greater than or equal to 500 million, locktime is parsed using the Unix epoch time format (the number of seconds elapsed since 1970-01-01T00:00 UTC—currently over 1.395 billion). The transaction can be added to any block whose block time is greater than the locktime.
 
 ## Transaction Fees And Change
 
@@ -279,9 +286,9 @@ Even better, using new public keys or unique addresses when accepting payments o
 
 Avoiding key reuse can also provide security against attacks which might allow reconstruction of private keys from public keys (hypothesized) or from signature comparisons (possible today under certain circumstances described below, with more general attacks hypothesized).
 
-    Unique (non-reused) P2PKH and P2SH addresses protect against the first type of attack by keeping ECDSA public keys hidden (hashed) until the first time satoshis sent to those addresses are spent, so attacks are effectively useless unless they can reconstruct private keys in less than the hour or two it takes for a transaction to be well protected by the block chain.
+- Unique (non-reused) P2PKH and P2SH addresses protect against the first type of attack by keeping ECDSA public keys hidden (hashed) until the first time satoshis sent to those addresses are spent, so attacks are effectively useless unless they can reconstruct private keys in less than the hour or two it takes for a transaction to be well protected by the block chain.
 
-    Unique (non-reused) private keys protect against the second type of attack by only generating one signature per private key, so attackers never get a subsequent signature to use in comparison-based attacks. Existing comparison-based attacks are only practical today when insufficient entropy is used in signing or when the entropy used is exposed by some means, such as a side-channel attack.
+- Unique (non-reused) private keys protect against the second type of attack by only generating one signature per private key, so attackers never get a subsequent signature to use in comparison-based attacks. Existing comparison-based attacks are only practical today when insufficient entropy is used in signing or when the entropy used is exposed by some means, such as a side-channel attack.
 
 So, for both privacy and security, we encourage you to build your applications to avoid public key reuse and, when possible, to discourage users from reusing addresses. If your application needs to provide a fixed URI to which payments should be sent, please see the bitcoin: URI section below.
 
