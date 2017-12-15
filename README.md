@@ -9,7 +9,7 @@ Questions about Litecoin development are best asked in one of the Litecoin devel
 
 In the following documentation, some strings have been shortened or wrapped: “[…]” indicates extra data was removed, and lines ending in a single backslash “\” are continued below. If you hover your mouse over a paragraph, cross-reference links will be shown in blue. If you hover over a cross-reference link, a brief definition of the term will be displayed in a tooltip.
 
-## [Block Chain](Block-chain.md)
+## [Block Chain](Block-Chain.md)
 - Block Chain Overview
 - Proof Of Work
 - Block Height And Forking
