@@ -17,20 +17,20 @@ To test whether the transaction is valid, signature script and pubkey script ope
     <i></i>
 </p>
 
-    The signature (from Bob’s signature script) is added (pushed) to an empty stack. Because it’s just data, nothing is done except adding it to the stack. The public key (also from the signature script) is pushed on top of the signature.
+- The signature (from Bob’s signature script) is added (pushed) to an empty stack. Because it’s just data, nothing is done except adding it to the stack. The public key (also from the signature script) is pushed on top of the signature.
 
-    From Alice’s pubkey script, the OP_DUP operation is executed. OP_DUP pushes onto the stack a copy of the data currently at the top of it—in this case creating a copy of the public key Bob provided.
+- From Alice’s pubkey script, the `OP_DUP` operation is executed. `OP_DUP` pushes onto the stack a copy of the data currently at the top of it—in this case creating a copy of the public key Bob provided.
 
-    The operation executed next, OP_HASH160, pushes onto the stack a hash of the data currently on top of it—in this case, Bob’s public key. This creates a hash of Bob’s public key.
+- The operation executed next, `OP_HASH160`, pushes onto the stack a hash of the data currently on top of it—in this case, Bob’s public key. This creates a hash of Bob’s public key.
 
-    Alice’s pubkey script then pushes the pubkey hash that Bob gave her for the first transaction. At this point, there should be two copies of Bob’s pubkey hash at the top of the stack.
+- Alice’s pubkey script then pushes the pubkey hash that Bob gave her for the first transaction. At this point, there should be two copies of Bob’s pubkey hash at the top of the stack.
 
-    Now it gets interesting: Alice’s pubkey script executes OP_EQUALVERIFY. OP_EQUALVERIFY is equivalent to executing OP_EQUAL followed by OP_VERIFY (not shown).
+- Now it gets interesting: Alice’s pubkey script executes `OP_EQUALVERIFY`. `OP_EQUALVERIFY` is equivalent to executing `OP_EQUAL` followed by `OP_VERIFY` (not shown).
 
-    OP_EQUAL (not shown) checks the two values at the top of the stack; in this case, it checks whether the pubkey hash generated from the full public key Bob provided equals the pubkey hash Alice provided when she created transaction #1. OP_EQUAL pops (removes from the top of the stack) the two values it compared, and replaces them with the result of that comparison: zero (false) or one (true).
+- `OP_EQUAL` (not shown) checks the two values at the top of the stack; in this case, it checks whether the pubkey hash generated from the full public key Bob provided equals the pubkey hash Alice provided when she created transaction #1. `OP_EQUAL` pops (removes from the top of the stack) the two values it compared, and replaces them with the result of that comparison: zero (false) or one (true).
 
-    OP_VERIFY (not shown) checks the value at the top of the stack. If the value is false it immediately terminates evaluation and the transaction validation fails. Otherwise it pops the true value off the stack.
+- `OP_VERIFY` (not shown) checks the value at the top of the stack. If the value is false it immediately terminates evaluation and the transaction validation fails. Otherwise it pops the true value off the stack.
 
-    Finally, Alice’s pubkey script executes OP_CHECKSIG, which checks the signature Bob provided against the now-authenticated public key he also provided. If the signature matches the public key and was generated using all of the data required to be signed, OP_CHECKSIG pushes the value true onto the top of the stack.
+- Finally, Alice’s pubkey script executes `OP_CHECKSIG`, which checks the signature Bob provided against the now-authenticated public key he also provided. If the signature matches the public key and was generated using all of the data required to be signed, `OP_CHECKSIG` pushes the value true onto the top of the stack.
 
 If false is not at the top of the stack after the pubkey script has been evaluated, the transaction is valid (provided there are no other problems with it).
