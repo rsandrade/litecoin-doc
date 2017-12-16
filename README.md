@@ -42,7 +42,7 @@ In the following documentation, some strings have been shortened or wrapped: “
   - [Distributing-Only Wallets](Wallets.md#distributing-only-wallets)
 - [Wallet Files](Wallets.md#wallet-files)
 - [Private Key Formats](Wallets.md#private-key-formats)
-  - [Wallet Import Format (WIF)](Wallets.md#wallet-import-format)
+  - [Wallet Import Format (WIF)](Wallets.md#wallet-import-format-wif)
   - [Mini Private Key Format](Wallets.md#mini-private-key-formats)
 - [Public Key Formats](Wallets.md#public-key-formats)
 - [Hierarchical Deterministic Key Creation](Wallets.md#hierarchical-determinist-key-creation)
