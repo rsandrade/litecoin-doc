@@ -164,9 +164,8 @@ However, Bitcoin Core prior to 0.6 used uncompressed keys. This creates a few co
 
 For this reason, Bitcoin Core uses several different identifier bytes to help programs identify how keys should be used:
 
-    Private keys meant to be used with compressed public keys have 0x01 appended to them before being Base-58 encoded. (See the private key encoding section above.)
-
-    Uncompressed public keys start with 0x04; compressed public keys begin with 0x03 or 0x02 depending on whether they’re greater or less than the midpoint of the curve. These prefix bytes are all used in official secp256k1 documentation.
+- Private keys meant to be used with compressed public keys have 0x01 appended to them before being Base-58 encoded. (See the private key encoding section above.)
+- Uncompressed public keys start with 0x04; compressed public keys begin with 0x03 or 0x02 depending on whether they’re greater or less than the midpoint of the curve. These prefix bytes are all used in official secp256k1 documentation.
 
 ### Hierarchical Deterministic Key Creation
 
@@ -255,12 +254,14 @@ The HD protocol also describes a serialization format for extended public keys a
 Root seeds in the HD protocol are 128, 256, or 512 bits of random data which must be backed up precisely. To make it more convenient to use non-digital backup methods, such as memorization or hand-copying, BIP39 defines a method for creating a 512-bit root seed from a pseudo-sentence (mnemonic) of common natural-language words which was itself created from 128 to 256 bits of entropy and optionally protected by a password.
 
 The number of words generated correlates to the amount of entropy used:
-Entropy Bits 	Words
-128 	12
-160 	15
-192 	18
-224 	21
-256 	24
+
+Entropy Bits | Words
+-------------|--------
+128|12
+160|15
+192|18
+224|21
+256|24
 
 The passphrase can be of any length. It is simply appended to the mnemonic pseudo-sentence, and then both the mnemonic and password are hashed 2,048 times using HMAC-SHA512, resulting in a seemingly-random 512-bit seed. Because any input to the hash function creates a seemingly-random 512-bit seed, there is no fundamental way to prove the user entered the correct password, possibly allowing the user to protect a seed even when under duress.
 
