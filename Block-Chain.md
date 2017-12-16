@@ -17,6 +17,7 @@ The illustration above shows a simplified version of a block chain. A block of o
 The merkle root is stored in the block header. Each block also stores the hash of the previous block’s header, chaining the blocks together. This ensures a transaction cannot be modified without modifying the block that records it and all following blocks.
 
 Transactions are also chained together. Bitcoin wallet software gives the impression that satoshis are sent from and to wallets, but bitcoins really move from transaction to transaction. Each transaction spends the satoshis previously received in one or more earlier transactions, so the input of one transaction is the output of a previous transaction.
+
 <p align="center">
     <img src="img/en-transaction-propagation.svg"><br>
 </p>
@@ -43,9 +44,9 @@ In the example given above, you will produce a successful hash on average every 
 
 New blocks will only be added to the block chain if their hash is at least as challenging as a difficulty value expected by the consensus protocol. Every 2,016 blocks, the network uses timestamps stored in each block header to calculate the number of seconds elapsed between generation of the first and last of those last 2,016 blocks. The ideal value is 1,209,600 seconds (two weeks).
 
-    If it took fewer than two weeks to generate the 2,016 blocks, the expected difficulty value is increased proportionally (by as much as 300%) so that the next 2,016 blocks should take exactly two weeks to generate if hashes are checked at the same rate.
+- If it took fewer than two weeks to generate the 2,016 blocks, the expected difficulty value is increased proportionally (by as much as 300%) so that the next 2,016 blocks should take exactly two weeks to generate if hashes are checked at the same rate.
 
-    If it took more than two weeks to generate the blocks, the expected difficulty value is decreased proportionally (by as much as 75%) for the same reason.
+- If it took more than two weeks to generate the blocks, the expected difficulty value is decreased proportionally (by as much as 75%) for the same reason.
 
 (Note: an off-by-one error in the Bitcoin Core implementation causes the difficulty to be updated every 2,016 blocks using timestamps from only 2,015 blocks, creating a slight skew.)
 
@@ -57,7 +58,9 @@ The block header provides several easy-to-modify fields, such as a dedicated non
 
 Any Bitcoin miner who successfully hashes a block header to a value below the target threshold can add the entire block to the block chain (assuming the block is otherwise valid). These blocks are commonly addressed by their block height—the number of blocks between them and the first Bitcoin block (block 0, most commonly known as the genesis block). For example, block 2016 is where difficulty could have first been adjusted.
 
-Common And Uncommon Block Chain Forks
+<p align="center">
+    <img src="img/en-blockchain-fork.svg"><br>
+</p>
 
 Multiple blocks can all have the same block height, as is common when two or more miners each produce a block at roughly the same time. This creates an apparent fork in the block chain, as shown in the illustration above.
 
