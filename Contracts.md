@@ -2,11 +2,11 @@
 
 # Contracts
 
-Contracts are transactions which use the decentralized Bitcoin system to enforce financial agreements. Bitcoin contracts can often be crafted to minimize dependency on outside agents, such as the court system, which significantly decreases the risk of dealing with unknown entities in financial transactions.
+Contracts are transactions which use the decentralized Litecoin system to enforce financial agreements. Litecoin contracts can often be crafted to minimize dependency on outside agents, such as the court system, which significantly decreases the risk of dealing with unknown entities in financial transactions.
 
-The following subsections will describe a variety of Bitcoin contracts already in use. Because contracts deal with real people, not just transactions, they are framed below in story format.
+The following subsections will describe a variety of Litecoin contracts already in use. Because contracts deal with real people, not just transactions, they are framed below in story format.
 
-Besides the contract types described below, many other contract types have been proposed. Several of them are collected on the Contracts page of the Bitcoin Wiki.
+Besides the contract types described below, many other contract types have been proposed. Several of them are collected on the Contracts page of the Litecoin Wiki.
 
 ## Escrow And Arbitration
 
@@ -62,13 +62,13 @@ If Alice fails to broadcast a version of the refund transaction before its time 
 
 Transaction malleability, discussed above in the Transactions section, is another reason to limit the value of micropayment channels. If someone uses transaction malleability to break the link between the two transactions, Alice could hold Bob’s 100 millibitcoins hostage even if she hadn’t done any work.
 
-For larger payments, Bitcoin transaction fees are very low as a percentage of the total transaction value, so it makes more sense to protect payments with immediately-broadcast separate transactions.
+For larger payments, BiLitecointcoin transaction fees are very low as a percentage of the total transaction value, so it makes more sense to protect payments with immediately-broadcast separate transactions.
 
-Resource: The bitcoinj Java library provides a complete set of micropayment functions, an example implementation, and a tutorial all under an Apache license.
+Resource: The bitcoinjs Java library provides a complete set of micropayment functions, an example implementation, and a tutorial all under an Apache license.
 
 ## CoinJoin
 
-Alice is concerned about her privacy. She knows every transaction gets added to the public block chain, so when Bob and Charlie pay her, they can each easily track those satoshis to learn what Bitcoin addresses she pays, how much she pays them, and possibly how many satoshis she has left.
+Alice is concerned about her privacy. She knows every transaction gets added to the public block chain, so when Bob and Charlie pay her, they can each easily track those satoshis to learn what Litecoin addresses she pays, how much she pays them, and possibly how many satoshis she has left.
 
 Alice isn’t a criminal, she just wants plausible deniability about where she has spent her satoshis and how many she has left, so she starts up the Tor anonymity service on her computer and logs into an IRC chatroom as “AnonGirl.”
 
