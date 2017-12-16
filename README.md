@@ -28,10 +28,10 @@ In the following documentation, some strings have been shortened or wrapped: “
 - [Avoiding Key Reuse](Transactions.md#avoiding-key-reuse)
 - [Transaction Malleability](Transactions.md#transaction-malleability)
 
-## Contracts
-- Escrow And Arbitration
-- Micropayment Channel
-- CoinJoin
+## [Contracts](Contracts.md)
+- [Escrow And Arbitration](Contracts.md#escrow-and-arbitration)
+- [Micropayment Channel](Contracts.md#micropayment-channel)
+- [CoinJoin](Contracts.md#coinjoin)
 
 ## Wallets
 - Wallet Programs
