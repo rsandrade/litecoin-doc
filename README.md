@@ -96,4 +96,5 @@ In the following documentation, some strings have been shortened or wrapped: “
 
 ## Third-party resources
 - [BitcoinJS](https://github.com/bitcoinjs/bitcoinjs-lib)
+  - bitcoinjs/bitcoinjs-lib#389
   - [Altcoin and bitcoinjs #389](https://github.com/bitcoinjs/bitcoinjs-lib/issues/389)
