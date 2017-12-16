@@ -8,7 +8,6 @@ To keep things simple, this section pretends coinbase transactions do not exist.
 
 <p align="center">
     <img src="img/en-tx-overview.svg"><br>
-    <i></i>
 </p>
 
 The figure above shows the main parts of a Litecoin transaction. Each transaction has at least one input and one output. Each input spends the lites paid to a previous output. Each output then waits as an Unspent Transaction Output (UTXO) until a later input spends it. When your Litecoin wallet tells you that you have a 10,000 lites balance, it really means that you have 10,000 lites waiting in one or more UTXOs.
