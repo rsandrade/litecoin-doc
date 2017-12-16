@@ -34,21 +34,21 @@ In the following documentation, some strings have been shortened or wrapped: “
 - [CoinJoin](Contracts.md#coinjoin)
 
 ## [Wallets](Wallets.md)
-- Wallet Programs
-  - Full-Service Wallets
-  - Signing-Only Wallets
-    - Offline Wallets
-    - Hardware Wallets
-  - Distributing-Only Wallets
-- Wallet Files
-- Private Key Formats
-  - Wallet Import Format (WIF)
-  - Mini Private Key Format
-- Public Key Formats
-- Hierarchical Deterministic Key Creation
-  - Hardened Keys
-  - Storing Root Seeds
-- Loose-Key Wallets
+- [Wallet Programs](Wallets.md#wallet-program)
+  - [Full-Service Wallets](Wallets.md#fukk-service-wallets)
+  - [Signing-Only Wallets](Wallets.md#signing-only-wallets)
+    - [Offline Wallets](Wallets.md#offline-wallets)
+    - [Hardware Wallets](Wallets.md#hardware-wallets)
+  - [Distributing-Only Wallets](Wallets.md#distributing-only-wallets)
+- [Wallet Files](Wallets.md#wallet-files)
+- [Private Key Formats](Wallets.md#private-key-formats)
+  - [Wallet Import Format (WIF)](Wallets.md#wallet-import-format)
+  - [Mini Private Key Format](Wallets.md#mini-private-key-formats)
+- [Public Key Formats](Wallets.md#public-key-formats)
+- [Hierarchical Deterministic Key Creation](Wallets.md#hierarchical-determinist-key-creation)
+  - [Hardened Keys](Wallets.md#hardened-keys)
+  - [Storing Root Seeds](Wallets.md#storing-root-seeds)
+- [Loose-Key Wallets](Wallets.md#Loose-Key-wallets)
 
 ## Payment Processing
 - Pricing Orders
