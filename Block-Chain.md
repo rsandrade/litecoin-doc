@@ -8,6 +8,10 @@ Each full node in the Bitcoin network independently stores a block chain contain
 
 ## Block Chain Overview
 
+<p align="center">
+    <img src="img/en-blockchain-overview.svg"><br>
+</p>
+
 The illustration above shows a simplified version of a block chain. A block of one or more new transactions is collected into the transaction data part of a block. Copies of each transaction are hashed, and the hashes are then paired, hashed, paired again, and hashed again until a single hash remains, the merkle root of a merkle tree.
 
 The merkle root is stored in the block header. Each block also stores the hash of the previous block’s header, chaining the blocks together. This ensures a transaction cannot be modified without modifying the block that records it and all following blocks.
