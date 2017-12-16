@@ -20,7 +20,7 @@ Edit | History | Report Issue | Discuss
 
 The simplest wallet is a program which performs all three functions: it generates private keys, derives the corresponding public keys, helps distribute those public keys as necessary, monitors for outputs spent to those public keys, creates and signs transactions spending those outputs, and broadcasts the signed transactions.
 
-**Full-Service Wallets**
+### Full-Service Wallets
 
 As of this writing, almost all popular wallets can be used as full-service wallets.
 
@@ -30,13 +30,13 @@ The main disadvantage of full-service wallets is that they store the private key
 
 To help protect against theft, many wallet programs offer users the option of encrypting the wallet files which contain the private keys. This protects the private keys when they aren’t being used, but it cannot protect against an attack designed to capture the encryption key or to read the decrypted keys from memory.
 
-*Signing-Only Wallets*
+### Signing-Only Wallets
 
 To increase security, private keys can be generated and stored by a separate wallet program operating in a more secure environment. These signing-only wallets work in conjunction with a networked wallet which interacts with the peer-to-peer network.
 
 Signing-only wallets programs typically use deterministic key creation (described in a later subsection) to create parent private and public keys which can create child private and public keys.
 
-**Signing-Only Wallets**
+Signing-Only Wallets
 
 When first run, the signing-only wallet creates a parent private key and transfers the corresponding parent public key to the networked wallet.
 
@@ -49,8 +49,8 @@ After the optional review step, the signing-only wallet uses the parent private 
 The networked wallet then broadcasts the signed transactions to the peer-to-peer network.
 
 The following subsections describe the two most common variants of signing-only wallets: offline wallets and hardware wallets.
-Offline Wallets
-Edit | History | Report Issue | Discuss
+
+**Offline Wallets
 
 Several full-service wallets programs will also operate as two separate wallets: one program instance acting as a signing-only wallet (often called an “offline wallet”) and the other program instance acting as the networked wallet (often called an “online wallet” or “watching-only wallet”).
 
@@ -67,8 +67,8 @@ The offline wallet is so named because it is intended to be run on a device whic
 The primary advantage of offline wallets is their possibility for greatly improved security over full-service wallets. As long as the offline wallet is not compromised (or flawed) and the user reviews all outgoing transactions before signing, the user’s satoshis are safe even if the online wallet is compromised.
 
 The primary disadvantage of offline wallets is hassle. For maximum security, they require the user dedicate a device to only offline tasks. The offline device must be booted up whenever funds are to be spent, and the user must physically copy data from the online device to the offline device and back.
-Hardware Wallets
-Edit | History | Report Issue | Discuss
+
+**Hardware Wallets**
 
 Hardware wallets are devices dedicated to running a signing-only wallet. Their dedication lets them eliminate many of the vulnerabilities present in operating systems designed for general use, allowing them to safely communicate directly with other devices so users don’t need to transfer data manually. The user’s workflow is something like:
 
