@@ -50,7 +50,9 @@ Bob asks Alice for her public key and then creates two transactions. The first t
 
 The second transaction spends all of the first transaction’s millibitcoins (minus a transaction fee) back to Bob after a 24 hour delay enforced by locktime. This is the refund transaction. Bob can’t sign the refund transaction by himself, so he gives it to Alice to sign, as shown in the illustration below.
 
-Micropayment Channel Example
+<p align="center">
+    <img src="img/en-micropayment-channel.svg"><br>
+</p>
 
 Alice checks that the refund transaction’s locktime is 24 hours in the future, signs it, and gives a copy of it back to Bob. She then asks Bob for the bond transaction and checks that the refund transaction spends the output of the bond transaction. She can now broadcast the bond transaction to the network to ensure Bob has to wait for the time lock to expire before further spending his millibitcoins. Bob hasn’t actually spent anything so far, except possibly a small transaction fee, and he’ll be able to broadcast the refund transaction in 24 hours for a full refund.
 
@@ -74,7 +76,9 @@ Alice isn’t a criminal, she just wants plausible deniability about where she h
 
 Also in the chatroom are “Nemo” and “Neminem.” They collectively agree to transfer satoshis between each other so no one besides them can reliably determine who controls which satoshis. But they’re faced with a dilemma: who transfers their satoshis to one of the other two pseudonymous persons first? The CoinJoin-style contract, shown in the illustration below, makes this decision easy: they create a single transaction which does all of the spending simultaneously, ensuring none of them can steal the others’ satoshis.
 
-Example CoinJoin Transaction
+<p align="center">
+    <img src="img/en-coinjoin.svg"><br>
+</p>
 
 Each contributor looks through their collection of Unspent Transaction Outputs (UTXOs) for 100 millibitcoins they can spend. They then each generate a brand new public key and give UTXO details and pubkey hashes to the facilitator. In this case, the facilitator is AnonGirl; she creates a transaction spending each of the UTXOs to three equally-sized outputs. One output goes to each of the contributors’ pubkey hashes.
 
