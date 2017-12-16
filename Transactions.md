@@ -15,8 +15,7 @@ The figure above shows the main parts of a Litecoin transaction. Each transactio
 Each transaction is prefixed by a four-byte transaction version number which tells Litecoin peers and miners which set of rules to use to validate it. This lets developers create new rules for future transactions without invalidating previous transactions.
 
 <p align="center">
-    <img src="img/en-tx-overview-spending.svg"><br>
-    <i></i>
+    <img src="img/en-tx-overview-spending.svg"><br>>
 </p>
 
 An output has an implied index number based on its location in the transaction—the index of the first output is zero. The output also has an amount in lites which it pays to a conditional pubkey script. Anyone who can satisfy the conditions of that pubkey script can spend up to the amount of lites paid to it.
@@ -27,7 +26,6 @@ The figures below help illustrate how these features are used by showing the wor
 
 <p align="center">
     <img src="img/en-creating-p2pkh-output.svg"><br>
-    <i></i>
 </p>
 
 Bob must first generate a private/public key pair before Alice can create the first transaction. Litecoin uses the Elliptic Curve Digital Signature Algorithm (ECDSA) with the secp256k1 curve; secp256k1 private keys are 256 bits of random data. A copy of that data is deterministically transformed into an secp256k1 public key. Because the transformation can be reliably repeated later, the public key does not need to be stored.
@@ -46,7 +44,6 @@ Pubkey scripts and signature scripts combine secp256k1 pubkeys and signatures wi
 
 <p align="center">
     <img src="img/en-unlocking-p2pkh-output.svg"><br>
-    <i></i>
 </p>
 
 For a P2PKH-style output, Bob’s signature script will contain the following two pieces of data:
@@ -59,7 +56,6 @@ Bob’s secp256k1 signature doesn’t just prove Bob controls his private key; i
 
 <p align="center">
     <img src="img/en-signing-output-to-spend.svg"><br>
-    <i></i>
 </p>
 
 As illustrated in the figure above, the data Bob signs includes the txid and output index of the previous transaction, the previous output’s pubkey script, the pubkey script Bob creates which will let the next recipient spend this transaction’s output, and the amount of lites to spend to the next recipient. In essence, the entire transaction is signed except for any signature scripts, which hold the full public keys and secp256k1 signatures.
@@ -82,7 +78,6 @@ To test whether the transaction is valid, signature script and pubkey script ope
 
 <p align="center">
     <img src="img/en-p2pkh-stack.svg"><br>
-    <i></i>
 </p>
 
 - The signature (from Bob’s signature script) is added (pushed) to an empty stack. Because it’s just data, nothing is done except adding it to the stack. The public key (also from the signature script) is pushed on top of the signature.
@@ -111,11 +106,15 @@ To solve these problems, pay-to-script-hash (P2SH) transactions were created in 
 
 The basic P2SH workflow, illustrated below, looks almost identical to the P2PKH workflow. Bob creates a redeem script with whatever script he wants, hashes the redeem script, and provides the redeem script hash to Alice. Alice creates a P2SH-style output containing Bob’s redeem script hash.
 
-Creating A P2SH Redeem Script And Hash
+<p align="center">
+    <img src="img/en-creating-ps2sh-output.svg"><br>
+</p>
 
 When Bob wants to spend the output, he provides his signature along with the full (serialized) redeem script in the signature script. The peer-to-peer network ensures the full redeem script hashes to the same value as the script hash Alice put in her output; it then processes the redeem script exactly as it would if it were the primary pubkey script, letting Bob spend the output if the redeem script does not return false.
 
-Unlocking A P2SH Output For Spending
+<p align="center">
+    <img src="img/en-unlocking-p2sh-output.svg"><br>
+</p>
 
 The hash of the redeem script has the same properties as a pubkey hash—so it can be transformed into the standard Bitcoin address format with only one small change to differentiate it from a standard address. This makes collecting a P2SH-style address as simple as collecting a P2PKH-style address. The hash also obfuscates any public keys in the redeem script, so P2SH scripts are as secure as P2PKH pubkey hashes.
 
