@@ -88,6 +88,7 @@ The resulting hashes themselves are each paired with one other hash and hashed t
 
 For example, if transactions were merely joined (not hashed), a five-transaction merkle tree would look like the following text diagram:
 
+```
        ABCDEEEE .......Merkle root
       /        \
    ABCD        EEEE
@@ -95,6 +96,7 @@ For example, if transactions were merely joined (not hashed), a five-transaction
  AB    CD    EE .......E is paired with itself
 /  \  /  \  /
 A  B  C  D  E .........Transactions
+```
 
 As discussed in the Simplified Payment Verification (SPV) subsection, the merkle tree allows clients to verify for themselves that a transaction was included in a block by obtaining the merkle root from a block header and a list of the intermediate hashes from a full peer. The full peer does not need to be trusted: it is expensive to fake block headers and the intermediate hashes cannot be faked or the verification will fail.
 
