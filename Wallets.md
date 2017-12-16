@@ -15,12 +15,12 @@ Wallet programs also need to interact with the peer-to-peer network to get infor
 This leaves us with three necessary, but separable, parts of a wallet system: a public key distribution program, a signing program, and a networked program. In the subsections below, we will describe common combinations of these parts.
 
 Note: we speak about distributing public keys generically. In many cases, P2PKH or P2SH hashes will be distributed instead of public keys, with the actual public keys only being distributed when the outputs they control are spent.
-Full-Service Wallets
-Edit | History | Report Issue | Discuss
+
+### Full-Service Wallets
 
 The simplest wallet is a program which performs all three functions: it generates private keys, derives the corresponding public keys, helps distribute those public keys as necessary, monitors for outputs spent to those public keys, creates and signs transactions spending those outputs, and broadcasts the signed transactions.
 
-### Full-Service Wallets
+Image Full-Service Wallets
 
 As of this writing, almost all popular wallets can be used as full-service wallets.
 
@@ -50,7 +50,7 @@ The networked wallet then broadcasts the signed transactions to the peer-to-peer
 
 The following subsections describe the two most common variants of signing-only wallets: offline wallets and hardware wallets.
 
-**Offline Wallets
+#### Offline Wallets
 
 Several full-service wallets programs will also operate as two separate wallets: one program instance acting as a signing-only wallet (often called an “offline wallet”) and the other program instance acting as the networked wallet (often called an “online wallet” or “watching-only wallet”).
 
@@ -68,7 +68,7 @@ The primary advantage of offline wallets is their possibility for greatly improv
 
 The primary disadvantage of offline wallets is hassle. For maximum security, they require the user dedicate a device to only offline tasks. The offline device must be booted up whenever funds are to be spent, and the user must physically copy data from the online device to the offline device and back.
 
-**Hardware Wallets**
+#### Hardware Wallets
 
 Hardware wallets are devices dedicated to running a signing-only wallet. Their dedication lets them eliminate many of the vulnerabilities present in operating systems designed for general use, allowing them to safely communicate directly with other devices so users don’t need to transfer data manually. The user’s workflow is something like:
 
@@ -90,25 +90,25 @@ Edit | History | Report Issue | Discuss
 
 Wallet programs which run in difficult-to-secure environments, such as webservers, can be designed to distribute public keys (including P2PKH or P2SH addresses) and nothing more. There are two common ways to design these minimalist wallets:
 
-Distributing-Only Wallets
+### Distributing-Only Wallets
 
     Pre-populate a database with a number of public keys or addresses, and then distribute on request a pubkey script or address using one of the database entries. To avoid key reuse, webservers should keep track of used keys and never run out of public keys. This can be made easier by using parent public keys as suggested in the next method.
 
     Use a parent public key to create child public keys. To avoid key reuse, a method must be used to ensure the same public key isn’t distributed twice. This can be a database entry for each key distributed or an incrementing pointer to the key index number.
 
 Neither method adds a significant amount of overhead, especially if a database is used anyway to associate each incoming payment with a separate public key for payment tracking. See the Payment Processing section for details.
-Wallet Files
-Edit | History | Report Issue | Discuss
+
+## Wallet Files
 
 Bitcoin wallets at their core are a collection of private keys. These collections are stored digitally in a file, or can even be physically stored on pieces of paper.
-Private Key Formats
-Edit | History | Report Issue | Discuss
+
+### Private Key Formats
 
 Private keys are what are used to unlock satoshis from a particular address. In Bitcoin, a private key in standard format is simply a 256-bit number, between the values:
 
 0x01 and 0xFFFF FFFF FFFF FFFF FFFF FFFF FFFF FFFE BAAE DCE6 AF48 A03B BFD2 5E8C D036 4140, representing nearly the entire range of 2256-1 values. The range is governed by the secp256k1 ECDSA encryption standard used by Bitcoin.
-Wallet Import Format (WIF)
-Edit | History | Report Issue | Discuss
+
+#### Wallet Import Format (WIF)
 
 In order to make copying of private keys less prone to error, Wallet Import Format may be utilized. WIF uses base58Check encoding on an private key, greatly decreasing the chance of copying error, much like standard Bitcoin addresses.
 
@@ -129,8 +129,8 @@ In order to make copying of private keys less prone to error, Wallet Import Form
     Convert the result from a byte string into a Base58 string using Base58Check encoding.
 
 The process is easily reversible, using the Base58 decoding function, and removing the padding.
-Mini Private Key Format
-Edit | History | Report Issue | Discuss
+
+#### Mini Private Key Format
 
 Mini private key format is a method for encoding a private key in under 30 characters, enabling keys to be embedded in a small physical space, such as physical bitcoin tokens, and more damage-resistant QR codes.
 
@@ -145,8 +145,8 @@ Mini private key format is a method for encoding a private key in under 30 chara
 Many implementations disallow the character ‘1’ in the mini private key due to its visual similarity to ‘l’.
 
 Resource: A common tool to create and redeem these keys is the Casascius Bitcoin Address Utility.
-Public Key Formats
-Edit | History | Report Issue | Discuss
+
+### Public Key Formats
 
 Bitcoin ECDSA public keys represent a point on a particular Elliptic Curve (EC) defined in secp256k1. In their traditional uncompressed form, public keys contain an identification byte, a 32-byte X coordinate, and a 32-byte Y coordinate. The extremely simplified illustration below shows such a point on the elliptic curve used by Bitcoin, y2 = x3 + 7, over a field of contiguous numbers.
 
@@ -168,24 +168,23 @@ For this reason, Bitcoin Core uses several different identifier bytes to help pr
 
     Uncompressed public keys start with 0x04; compressed public keys begin with 0x03 or 0x02 depending on whether they’re greater or less than the midpoint of the curve. These prefix bytes are all used in official secp256k1 documentation.
 
-Hierarchical Deterministic Key Creation
-Edit | History | Report Issue | Discuss
+### Hierarchical Deterministic Key Creation
 
 The hierarchical deterministic key creation and transfer protocol (HD protocol) greatly simplifies wallet backups, eliminates the need for repeated communication between multiple programs using the same wallet, permits creation of child accounts which can operate independently, gives each parent account the ability to monitor or control its children even if the child account is compromised, and divides each account into full-access and restricted-access parts so untrusted users or programs can be allowed to receive or monitor payments without being able to spend them.
 
 The HD protocol takes advantage of the ECDSA public key creation function, point(), which takes a large integer (the private key) and turns it into a graph point (the public key):
 
-point(private_key) == public_key
+`point(private_key) == public_key`
 
 Because of the way point() works, it’s possible to create a child public key by combining an existing (parent) public key with another public key created from any integer (i) value. This child public key is the same public key which would be created by the point() function if you added the i value to the original (parent) private key and then found the remainder of that sum divided by a global constant used by all Bitcoin software (p):
 
-point( (parent_private_key + i) % p ) == parent_public_key + point(i)
+`point( (parent_private_key + i) % p ) == parent_public_key + point(i)`
 
 This means that two or more independent programs which agree on a sequence of integers can create a series of unique child key pairs from a single parent key pair without any further communication. Moreover, the program which distributes new public keys for receiving payment can do so without any access to the private keys, allowing the public key distribution program to run on a possibly-insecure platform such as a public web server.
 
 Child public keys can also create their own child public keys (grandchild public keys) by repeating the child key derivation operations:
 
-point( (child_private_key + i) % p ) == child_public_key + point(i)
+`point( (child_private_key + i) % p ) == child_public_key + point(i)`
 
 Whether creating child public keys or further-descended public keys, a predictable sequence of integer values would be no better than using a single public key for all transactions, as anyone who knew one child public key could find all of the other child public keys created from the same parent public key. Instead, a random seed can be used to deterministically generate the sequence of integer values so that the relationship between the child public keys is invisible to anyone without that seed.
 
@@ -195,17 +194,17 @@ Overview Of Hierarchical Deterministic Key Derivation
 
 As illustrated above, HD key derivation takes four inputs:
 
-    The parent private key and parent public key are regular uncompressed 256-bit ECDSA keys.
-
-    The parent chain code is 256 bits of seemingly-random data.
-
-    The index number is a 32-bit integer specified by the program.
+- The parent private key and parent public key are regular uncompressed 256-bit ECDSA keys.
+- The parent chain code is 256 bits of seemingly-random data.
+- The index number is a 32-bit integer specified by the program.
 
 In the normal form shown in the above illustration, the parent chain code, the parent public key, and the index number are fed into a one-way cryptographic hash (HMAC-SHA512) to produce 512 bits of deterministically-generated-but-seemingly-random data. The seemingly-random 256 bits on the righthand side of the hash output are used as a new child chain code. The seemingly-random 256 bits on the lefthand side of the hash output are used as the integer value to be combined with either the parent private key or parent public key to, respectively, create either a child private key or child public key:
 
+```
 child_private_key == (parent_private_key + lefthand_hash_output) % G
 child_public_key == point( (parent_private_key + lefthand_hash_output) % G )
 child_public_key == point(child_private_key) == parent_public_key + point(lefthand_hash_output)
+```
 
 Specifying different index numbers will create different unlinkable child keys from the same parent keys. Repeating the procedure for the child keys using the child chain code will create unlinkable grandchild keys.
 
@@ -218,8 +217,8 @@ A root seed is created from either 128 bits, 256 bits, or 512 bits of random dat
 Warning icon Warning: As of this writing, HD wallet programs are not expected to be fully compatible, so users must only use the same HD wallet program with the same HD-related settings for a particular root seed.
 
 The root seed is hashed to create 512 bits of seemingly-random data, from which the master private key and master chain code are created (together, the master extended private key). The master public key is derived from the master private key using point(), which, together with the master chain code, is the master extended public key. The master extended keys are functionally equivalent to other extended keys; it is only their location at the top of the hierarchy which makes them special.
-Hardened Keys
-Edit | History | Report Issue | Discuss
+
+#### Hardened Keys
 
 Hardened extended keys fix a potential problem with normal extended keys. If an attacker gets a normal parent chain code and parent public key, he can brute-force all chain codes deriving from it. If the attacker also obtains a child, grandchild, or further-descended private key, he can use the chain code to generate all of the extended private keys descending from that private key, as shown in the grandchild and great-grandchild generations of the illustration below.
 
@@ -250,8 +249,8 @@ Example HD Wallet Tree Using Prime Notation
 Wallets following the BIP32 HD protocol only create hardened children of the master private key (m) to prevent a compromised child key from compromising the master key. As there are no normal children for the master keys, the master public key is not used in HD wallets. All other keys can have normal children, so the corresponding extended public keys may be used instead.
 
 The HD protocol also describes a serialization format for extended public keys and extended private keys. For details, please see the wallet section in the developer reference or BIP32 for the full HD protocol specification.
-Storing Root Seeds
-Edit | History | Report Issue | Discuss
+
+#### Storing Root Seeds
 
 Root seeds in the HD protocol are 128, 256, or 512 bits of random data which must be backed up precisely. To make it more convenient to use non-digital backup methods, such as memorization or hand-copying, BIP39 defines a method for creating a 512-bit root seed from a pseudo-sentence (mnemonic) of common natural-language words which was itself created from 128 to 256 bits of entropy and optionally protected by a password.
 
@@ -266,8 +265,8 @@ Entropy Bits 	Words
 The passphrase can be of any length. It is simply appended to the mnemonic pseudo-sentence, and then both the mnemonic and password are hashed 2,048 times using HMAC-SHA512, resulting in a seemingly-random 512-bit seed. Because any input to the hash function creates a seemingly-random 512-bit seed, there is no fundamental way to prove the user entered the correct password, possibly allowing the user to protect a seed even when under duress.
 
 For implementation details, please see BIP39.
-Loose-Key Wallets
-Edit | History | Report Issue | Discuss
+
+### Loose-Key Wallets
 
 Loose-Key wallets, also called “Just a Bunch Of Keys (JBOK)”, are a deprecated form of wallet that originated from the Bitcoin Core client wallet. The Bitcoin Core client wallet would create 100 private key/public key pairs automatically via a Pseudo-Random-Number Generator (PRNG) for later use.
 
