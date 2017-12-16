@@ -33,7 +33,7 @@ In the following documentation, some strings have been shortened or wrapped: “
 - [Micropayment Channel](Contracts.md#micropayment-channel)
 - [CoinJoin](Contracts.md#coinjoin)
 
-## Wallets
+## [Wallets](Wallets.md)
 - Wallet Programs
   - Full-Service Wallets
   - Signing-Only Wallets
