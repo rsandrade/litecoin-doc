@@ -54,7 +54,7 @@ In the following documentation, some strings have been shortened or wrapped: “
 - Pricing Orders
 - Requesting Payments
   - Plain Text
-  - bitcoin: URI
+  - litecoin: URI
   - QR Codes
   - Payment Protocol
 - Verifying Payment
