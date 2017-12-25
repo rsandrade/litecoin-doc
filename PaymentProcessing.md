@@ -209,7 +209,7 @@ Another example could be to detect a fork when multiple peers report differing b
 
 Another good source of double-spend protection can be human intelligence. For example, fraudsters may act differently from legitimate customers, letting savvy merchants manually flag them as high risk. Your program can provide a safe mode which stops automatic payment acceptance on a global or per-customer basis.
 
-# Issuing Refunds
+## Issuing Refunds
 
 Occasionally receivers using your applications will need to issue refunds. The obvious way to do that, which is very unsafe, is simply to return the satoshis to the pubkey script from which they came. For example:
 
@@ -229,7 +229,7 @@ This leaves receivers only two correct ways to issue refunds:
 
 Note: it would be wise to contact the spender directly if the refund is being issued a long time after the original payment was made. This allows you to ensure the user still has access to the key or keys for the refund_to address.
 
-# Disbursing Income (Limiting Forex Risk)
+## Disbursing Income (Limiting Forex Risk)
 
 Many receivers worry that their satoshis will be less valuable in the future than they are now, called foreign exchange (forex) risk. To limit forex risk, many receivers choose to disburse newly-acquired payments soon after they’re received.
 
@@ -241,7 +241,7 @@ If your application provides this business logic, it will need to choose which o
 
     A first-in-first-out (FIFO) algorithm spends the oldest satoshis first, which can help ensure that the receiver’s payments always confirm, although this has utility only in a few edge cases.
 
-# Merge Avoidance
+### Merge Avoidance
 
 When a receiver receives satoshis in an output, the spender can track (in a crude way) how the receiver spends those satoshis. But the spender can’t automatically see other satoshis paid to the receiver by other spenders as long as the receiver uses unique addresses for each transaction.
 
@@ -253,7 +253,7 @@ A crude merge avoidance strategy is to try to always pay with the smallest outpu
 
 More advanced merge avoidance strategies largely depend on enhancements to the payment protocol which will allow payers to avoid merging by intelligently distributing their payments among multiple outputs provided by the receiver.
 
-# Last In, First Out (LIFO)
+### Last In, First Out (LIFO)
 
 Outputs can be spent as soon as they’re received—even before they’re confirmed. Since recent outputs are at the greatest risk of being double-spent, spending them before older outputs allows the spender to hold on to older confirmed outputs which are much less likely to be double-spent.
 
@@ -268,8 +268,8 @@ In either of the above cases, the receiver of the second transaction will see th
 Because LIFO puts the recipient of secondary transactions in as much double-spend risk as the recipient of the primary transaction, they’re best used when the secondary recipient doesn’t care about the risk—such as an exchange or other service which is going to wait for six confirmations whether you spend old outputs or new outputs.
 
 LIFO should not be used when the primary transaction recipient’s reputation might be at stake, such as when paying employees. In these cases, it’s better to wait for transactions to be fully verified (see the Verification subsection above) before using them to make payments.
-First In, First Out (FIFO)
-Edit | History | Report Issue | Discuss
+
+### First In, First Out (FIFO)
 
 The oldest outputs are the most reliable, as the longer it’s been since they were received, the more blocks would need to be modified to double spend them. However, after just a few blocks, a point of rapidly diminishing returns is reached. The original Bitcoin paper predicts the chance of an attacker being able to modify old blocks, assuming the attacker has 30% of the total network hashing power:
 
@@ -290,7 +290,7 @@ FIFO does have a small advantage when it comes to transaction fees, as older out
 
 The only practical use of FIFO is by receivers who spend all or most of their income within a few blocks, and who want to reduce the chance of their payments becoming accidentally invalid. For example, a receiver who holds each payment for six confirmations, and then spends 100% of verified payments to vendors and a savings account on a bi-hourly schedule.
 
-# Rebilling Recurring Payments
+## Rebilling Recurring Payments
 
 Automated recurring payments are not possible with decentralized Bitcoin wallets. Even if a wallet supported automatically sending non-reversible payments on a regular schedule, the user would still need to start the program at the appointed time, or leave it running all the time unprotected by encryption.
 
