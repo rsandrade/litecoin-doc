@@ -50,7 +50,7 @@ In the following documentation, some strings have been shortened or wrapped: “
   - [Storing Root Seeds](Wallets.md#storing-root-seeds)
 - [Loose-Key Wallets](Wallets.md#Loose-Key-wallets)
 
-## Payment Processing
+## [Payment Processing](PaymentProcessing.md)
 - Pricing Orders
 - Requesting Payments
   - Plain Text
