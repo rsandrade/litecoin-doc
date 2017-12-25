@@ -1,5 +1,4 @@
-Payment Processing
-Edit | History | Report Issue | Discuss
+# Payment Processing
 
 Payment processing encompasses the steps spenders and receivers perform to make and accept payments in exchange for products or services. The basic steps have not changed since the dawn of commerce, but the technology has. This section will explain how receivers and spenders can, respectively, request and make payments using Bitcoin—and how they can deal with complications such as refunds and recurrent rebilling.
 
@@ -8,8 +7,8 @@ Bitcoin Payment Processing
 The figure above illustrates payment processing using Bitcoin from a receiver’s perspective, starting with a new order. The following subsections will each address the three common steps and the three occasional or optional steps.
 
 It is worth mentioning that each of these steps can be outsourced by using third party APIs and services.
-Pricing Orders
-Edit | History | Report Issue | Discuss
+
+## Pricing Orders
 
 Because of exchange rate variability between satoshis and national currencies (fiat), many Bitcoin orders are priced in fiat but paid in satoshis, necessitating a price conversion.
 
@@ -26,8 +25,8 @@ Exchange rates lie outside the control of Bitcoin and related technologies, so t
 Because the exchange rate fluctuates over time, order totals pegged to fiat must expire to prevent spenders from delaying payment in the hope that satoshis will drop in price. Most widely-used payment processing systems currently expire their invoices after 10 to 20 minutes.
 
 Shorter expiration periods increase the chance the invoice will expire before payment is received, possibly necessitating manual intervention to request an additional payment or to issue a refund. Longer expiration periods increase the chance that the exchange rate will fluctuate a significant amount before payment is received.
-Requesting Payments
-Edit | History | Report Issue | Discuss
+
+## Requesting Payments
 
 Before requesting payment, your application must create a Bitcoin address, or acquire an address from another program such as Bitcoin Core. Bitcoin addresses are described in detail in the Transactions section. Also described in that section are two important reasons to avoid using an address more than once—but a third reason applies especially to payment requests:
 
@@ -44,8 +43,8 @@ The next subsections will describe in detail the following four compatible ways 
     Recent wallet updates add support for the new payment protocol providing increased security, authentication of a receiver’s identity using X.509 certificates, and other important features such as refunds.
 
 Warning icon Warning: Special care must be taken to avoid the theft of incoming payments. In particular, private keys should not be stored on web servers, and payment requests should be sent over HTTPS or other secure methods to prevent man-in-the-middle attacks from replacing your Bitcoin address with the attacker’s address.
-Plain Text
-Edit | History | Report Issue | Discuss
+
+### Plain Text
 
 To specify an amount directly for copying and pasting, you must provide the address, the amount, and the denomination. An expiration time for the offer may also be specified. For example:
 
@@ -56,14 +55,16 @@ Amount: 100 BTC
 You must pay by: 2014-04-01 at 23:00 UTC
 
 Indicating the denomination is critical. As of this writing, popular Bitcoin wallet software defaults to denominating amounts in either bitcoins (BTC) , millibitcoins (mBTC) or microbitcoins (uBTC, “bits”). Choosing between each unit is widely supported, but other software also lets its users select denomination amounts from some or all of the following options:
-Bitcoins 	Unit (Abbreviation)
-1.0 	bitcoin (BTC)
-0.01 	bitcent (cBTC)
-0.001 	millibitcoin (mBTC)
-0.000001 	microbitcoin (uBTC, “bits”)
-0.00000001 	satoshi
-bitcoin: URI
-Edit | History | Report Issue | Discuss
+
+Bitcoins|Unit (Abbreviation)
+--------|-------------------
+1.0|bitcoin (BTC)
+0.01|bitcent (cBTC)
+0.001|millibitcoin (mBTC)
+0.000001|microbitcoin (uBTC, “bits”)
+0.00000001|satoshi
+
+### litecoin: URI
 
 The bitcoin: URI scheme defined in BIP21 eliminates denomination confusion and saves the spender from copying and pasting two separate values. It also lets the payment request provide some additional information to the spender. An example:
 
@@ -74,17 +75,17 @@ Only the address is required, and if it is the only thing specified, wallets wil
 Two other parameters are widely supported. The label parameter is generally used to provide wallet software with the recipient’s name. The message parameter is generally used to describe the payment request to the spender. Both the label and the message are commonly stored by the spender’s wallet software—but they are never added to the actual transaction, so other Bitcoin users cannot see them. Both the label and the message must be URI encoded.
 
 All four parameters used together, with appropriate URI encoding, can be seen in the line-wrapped example below.
-
+```
 bitcoin:mjSk1Ny9spzU2fouzYgLqGUD8U41iR35QN\
 ?amount=0.10\
 &label=Example+Merchant\
 &message=Order+of+flowers+%26+chocolates
-
+```
 The URI scheme can be extended, as will be seen in the payment protocol section below, with both new optional and required parameters. As of this writing, the only widely-used parameter besides the four described above is the payment protocol’s r parameter.
 
 Programs accepting URIs in any form must ask the user for permission before paying unless the user has explicitly disabled prompting (as might be the case for micropayments).
-QR Codes
-Edit | History | Report Issue | Discuss
+
+### QR Codes
 
 QR codes are a popular way to exchange bitcoin: URIs in person, in images, or in videos. Most mobile Bitcoin wallet apps, and some desktop wallets, support scanning QR codes to pre-fill their payment screens.
 
@@ -93,8 +94,8 @@ The figure below shows the same bitcoin: URI code encoded as four different Bitc
 Bitcoin QR Codes
 
 The error correction is combined with a checksum to ensure the Bitcoin QR code cannot be successfully decoded with data missing or accidentally altered, so your applications should choose the appropriate level of error correction based on the space you have available to display the code. Low-level damage correction works well when space is limited, and quartile-level damage correction helps ensure fast scanning when displayed on high-resolution screens.
-Payment Protocol
-Edit | History | Report Issue | Discuss
+
+### Payment Protocol
 
 Bitcoin Core 0.9 supports the new payment protocol. The payment protocol adds many important features to payment requests:
 
@@ -107,13 +108,13 @@ Bitcoin Core 0.9 supports the new payment protocol. The payment protocol adds ma
 Instead of being asked to pay a meaningless address, such as “mjSk1Ny9spzU2fouzYgLqGUD8U41iR35QN”, spenders are asked to pay the Common Name (CN) description from the receiver’s X.509 certificate, such as “www.bitcoin.org”.
 
 To request payment using the payment protocol, you use an extended (but backwards-compatible) bitcoin: URI. For example:
-
+```
 bitcoin:mjSk1Ny9spzU2fouzYgLqGUD8U41iR35QN\
 ?amount=0.10\
 &label=Example+Merchant\
 &message=Order+of+flowers+%26+chocolates\
 &r=https://example.com/pay/mjSk1Ny9spzU2fouzYgLqGUD8U41iR35QN
-
+```
 None of the parameters provided above, except r, are required for the payment protocol—but your applications may include them for backwards compatibility with wallet programs which don’t yet handle the payment protocol.
 
 The r parameter tells payment-protocol-aware wallet programs to ignore the other parameters and fetch a PaymentRequest from the URL provided. The browser, QR code reader, or other program processing the URI opens the spender’s Bitcoin wallet program on the URI.
@@ -173,8 +174,8 @@ In the case of a dispute, Charlie can generate a cryptographically-proven receip
     The Bitcoin block chain can prove that the pubkey script specified by Bob was paid the specified number of satoshis.
 
 If a refund needs to be issued, Bob’s server can safely pay the refund-to pubkey script provided by Charlie. See the Refunds section below for more details.
-Verifying Payment
-Edit | History | Report Issue | Discuss
+
+## Verifying Payment
 
 As explained in the Transactions and Block Chain sections, broadcasting a transaction to the network doesn’t ensure that the receiver gets paid. A malicious spender can create one transaction that pays the receiver and a second one that pays the same input back to himself. Only one of these transactions will be added to the block chain, and nobody can say for sure which one it will be.
 
@@ -207,8 +208,8 @@ For example, unconfirmed transactions can be compared among all connected peers 
 Another example could be to detect a fork when multiple peers report differing block header hashes at the same block height. Your program can go into a safe mode if the fork extends for more than two blocks, indicating a possible problem with the block chain. For more details, see the Detecting Forks subsection.
 
 Another good source of double-spend protection can be human intelligence. For example, fraudsters may act differently from legitimate customers, letting savvy merchants manually flag them as high risk. Your program can provide a safe mode which stops automatic payment acceptance on a global or per-customer basis.
-Issuing Refunds
-Edit | History | Report Issue | Discuss
+
+# Issuing Refunds
 
 Occasionally receivers using your applications will need to issue refunds. The obvious way to do that, which is very unsafe, is simply to return the satoshis to the pubkey script from which they came. For example:
 
@@ -227,8 +228,8 @@ This leaves receivers only two correct ways to issue refunds:
     If the payment protocol was used, send the refund to the output listed in the refund_to field of the Payment message.
 
 Note: it would be wise to contact the spender directly if the refund is being issued a long time after the original payment was made. This allows you to ensure the user still has access to the key or keys for the refund_to address.
-Disbursing Income (Limiting Forex Risk)
-Edit | History | Report Issue | Discuss
+
+# Disbursing Income (Limiting Forex Risk)
 
 Many receivers worry that their satoshis will be less valuable in the future than they are now, called foreign exchange (forex) risk. To limit forex risk, many receivers choose to disburse newly-acquired payments soon after they’re received.
 
@@ -240,8 +241,7 @@ If your application provides this business logic, it will need to choose which o
 
     A first-in-first-out (FIFO) algorithm spends the oldest satoshis first, which can help ensure that the receiver’s payments always confirm, although this has utility only in a few edge cases.
 
-Merge Avoidance
-Edit | History | Report Issue | Discuss
+# Merge Avoidance
 
 When a receiver receives satoshis in an output, the spender can track (in a crude way) how the receiver spends those satoshis. But the spender can’t automatically see other satoshis paid to the receiver by other spenders as long as the receiver uses unique addresses for each transaction.
 
@@ -252,8 +252,8 @@ Merge avoidance means trying to avoid spending unrelated outputs in the same tra
 A crude merge avoidance strategy is to try to always pay with the smallest output you have which is larger than the amount being requested. For example, if you have four outputs holding, respectively, 100, 200, 500, and 900 satoshis, you would pay a bill for 300 satoshis with the 500-satoshi output. This way, as long as you have outputs larger than your bills, you avoid merging.
 
 More advanced merge avoidance strategies largely depend on enhancements to the payment protocol which will allow payers to avoid merging by intelligently distributing their payments among multiple outputs provided by the receiver.
-Last In, First Out (LIFO)
-Edit | History | Report Issue | Discuss
+
+# Last In, First Out (LIFO)
 
 Outputs can be spent as soon as they’re received—even before they’re confirmed. Since recent outputs are at the greatest risk of being double-spent, spending them before older outputs allows the spender to hold on to older confirmed outputs which are much less likely to be double-spent.
 
@@ -272,23 +272,25 @@ First In, First Out (FIFO)
 Edit | History | Report Issue | Discuss
 
 The oldest outputs are the most reliable, as the longer it’s been since they were received, the more blocks would need to be modified to double spend them. However, after just a few blocks, a point of rapidly diminishing returns is reached. The original Bitcoin paper predicts the chance of an attacker being able to modify old blocks, assuming the attacker has 30% of the total network hashing power:
-Blocks 	Chance of successful modification
-5 	17.73523%
-10 	4.16605%
-15 	1.01008%
-20 	0.24804%
-25 	0.06132%
-30 	0.01522%
-35 	0.00379%
-40 	0.00095%
-45 	0.00024%
-50 	0.00006%
+
+Blocks|Chance of successful modification
+------|---------------------------------
+5|17.73523%
+10|4.16605%
+15|1.01008%
+20|0.24804%
+25|0.06132%
+30|0.01522%
+35|0.00379%
+40|0.00095%
+45|0.00024%
+50|0.00006%
 
 FIFO does have a small advantage when it comes to transaction fees, as older outputs may be eligible for inclusion in the 50,000 bytes set aside for no-fee-required high-priority transactions by miners running the default Bitcoin Core codebase. However, with transaction fees being so low, this is not a significant advantage.
 
 The only practical use of FIFO is by receivers who spend all or most of their income within a few blocks, and who want to reduce the chance of their payments becoming accidentally invalid. For example, a receiver who holds each payment for six confirmations, and then spends 100% of verified payments to vendors and a savings account on a bi-hourly schedule.
-Rebilling Recurring Payments
-Edit | History | Report Issue | Discuss
+
+# Rebilling Recurring Payments
 
 Automated recurring payments are not possible with decentralized Bitcoin wallets. Even if a wallet supported automatically sending non-reversible payments on a regular schedule, the user would still need to start the program at the appointed time, or leave it running all the time unprotected by encryption.
 
